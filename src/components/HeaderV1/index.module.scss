@@ -1,0 +1,36 @@
+.header {
+  background-color: #fff;
+  height: 60px;
+  width: 100vw;
+  border-bottom: 1px solid #eee;
+  .headerContent {
+    max-width: 1100px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    .headerLogo {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      margin-right: 120px;
+      img {
+        width: 60px !important;
+        height: 60px;
+      }
+      .logoTitle{
+        font-size: 20px;
+        font-weight: 700;
+        color: #007fff;
+      }
+    }
+    .headerNav {
+      padding: 0 20px;
+      flex: 1;
+      a{
+        display: inline-block;
+        padding: 0 20px;
+        font-size: 18px;
+      }
+    }
+  }
+}
