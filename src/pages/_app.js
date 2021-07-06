@@ -51,7 +51,7 @@ function MyApp({ Component, pageProps }) {
 
         <main className={styles.container}>
             <HeaderV1 isMobile={isMobile} />
-            <div className={styles.content}>
+            <div>
                 <Component {...pageProps} />
             </div>
 

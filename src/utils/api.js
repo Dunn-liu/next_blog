@@ -14,7 +14,7 @@ axios.interceptors.response.use(response => {
 })
 export function apiGet(url,params={}) {
     return new Promise((resolve, reject) => {
-        axios.get(url,params).then(res =>
+        axios.get(url, {params}).then(res =>
             resolve(res.data)
         ).catch(e => reject(e))
     })

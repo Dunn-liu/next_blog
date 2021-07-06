@@ -29,7 +29,12 @@
       a{
         display: inline-block;
         padding: 0 20px;
-        font-size: 18px;
+        font-size: 16px;
+        color: #3c4858;
+        font-weight: 700;
+      }
+      .navItem {
+        color: #0070f3 !important;
       }
     }
   }
