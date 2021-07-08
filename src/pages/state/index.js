@@ -1,8 +1,7 @@
-import {withRouter} from 'next/router'
-import styles from "../../../styles/Home.module.css";
+import { withRouter } from 'next/router'
 import { Comment, Tooltip, List } from 'antd';
 import moment from 'moment';
-const state = ({router}) => {
+const state = ({ router }) => {
     const data = [
         {
             actions: [<span key="comment-list-reply-to-0">Reply to</span>],
@@ -40,7 +39,7 @@ const state = ({router}) => {
         },
     ];
     return (
-        <div  className={styles.content}>
+        <div>
             <List
                 className="comment-list"
                 header={`${data.length} replies`}
