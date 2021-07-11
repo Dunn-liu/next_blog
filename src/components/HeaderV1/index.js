@@ -1,35 +1,33 @@
 import Link from '../Link'
-// import Link from 'next/link'
 import Image from 'next/image'
 import styles from './index.module.scss'
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import logo from '../../../public/logo.png'
 import React, { useEffect, useRef, useState } from "react";
-import { Input, message } from "antd";
+import { Input, message, Menu, Dropdown, } from "antd";
 function HeaderV1(props) {
     const { Search } = Input;
     const [searchWord, setSearchWord] = useState('')
-    const [showSearch, setShowSearch] = useState(false)
-    const [mobile, setMobile] = useState(false)
     const searchRef = useRef(null)
-    const isMobile = false
-    useEffect(() => {
-        // window.addEventListener('resize',() => {
-        //     setMobile(isMobile())
-        //     console.log('sss',isMobile())
-        // })
-        // return window.removeEventListener('resize',()=>{
-        //     setMobile(isMobile())
-        // })
-        console.log('555')
-    }, [isMobile])
-    // const isMobile = () => {
-    //     if(window.navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)){
-    //         return true
-    //     }else{
-    //         return false
-    //     }
-    // }
+    const menu = (
+        <Menu>
+            <Menu.Item>
+                <Link href='/' activeClassName={styles.navItem}>
+                    <a className='hover:text-blue-600 text-sm font-medium'>首页</a>
+                </Link>
+            </Menu.Item>
+            <Menu.Item>
+                <Link href='/state' activeClassName={styles.navItem}>
+                    <a className='hover:text-blue-600 text-sm font-medium'>动态</a>
+                </Link>
+            </Menu.Item>
+            <Menu.Item>
+                <Link href='/about' activeClassName={styles.navItem}>
+                    <a className='hover:text-blue-600 text-sm font-medium'>关于</a>
+                </Link>
+            </Menu.Item>
+        </Menu>
+    );
     const onSearch = value => {
         if (!value.trim()) {
             message.warning({
@@ -47,26 +45,26 @@ function HeaderV1(props) {
     const onChangeHandler = e => {
         setSearchWord(e.target.value.trim())
     }
-    console.log(mobile)
     return (
-        <div className={styles.header}>
-            {mobile ? <div>123</div> : <div className={styles.headerContent}>
-                <div className={styles.headerLogo}>
-                    <Image src={logo} alt='logo' />
-                    <div className={styles.logoTitle}>DunnBlog</div>
-                </div>
-                <div className={styles.headerNav}>
-                    <Link activeClassName={styles.navItem} href='/'>
-                        <a className='hover:text-blue-600'>首页</a>
-                    </Link>
-                    <Link activeClassName={styles.navItem} href='/state'>
-                        <a className='hover:text-blue-600'>动态</a>
-                    </Link>
-                    <Link activeClassName={styles.navItem} href='/about'>
-                        <a className='hover:text-blue-600'>关于</a>
-                    </Link>
-                </div>
-            </div>}
+        <div className='mx-auto md:w-3/5 md:px-0 px-4 h-16 flex items-center'>
+            <div className='h-12 flex items-center mr-4'>
+                <Image width={45} height={45} src={logo} alt='logo' />
+            </div>
+            <div className='md:block hidden ml-12'>
+                <Link href='/' activeClassName={styles.navItem}>
+                    <a className='hover:text-blue-600 text-xl font-medium mr-6'>首页</a>
+                </Link>
+                <Link href='/state' activeClassName={styles.navItem}>
+                    <a className='hover:text-blue-600 text-xl font-medium mr-6'>动态</a>
+                </Link>
+                <Link href='/about' activeClassName={styles.navItem}>
+                    <a className='hover:text-blue-600 text-xl font-medium mr-6'>关于</a>
+                </Link>
+            </div>
+            <Search placeholder="输入您想搜索的内容" onSearch={onSearch} className='md:hidden mr-4' />
+            <Dropdown overlay={menu} placement="bottomCenter">
+                <MenuUnfoldOutlined className='text-lg md:hidden' />
+            </Dropdown>
         </div>
     )
 }
