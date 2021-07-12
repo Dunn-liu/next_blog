@@ -31,9 +31,7 @@ const Article = ({ router, res }) => {
 }
 Article.getInitialProps = async (ctx) => {
     const { query } = ctx
-    console.log(query)
     const res = await apiGet('/blog/getArticle', { id: query.id })
-    console.log(res)
     return { res }
 }
 export default withRouter(Article)

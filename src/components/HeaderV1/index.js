@@ -1,5 +1,6 @@
 import Link from '../Link'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import styles from './index.module.scss'
 import { SearchOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import logo from '../../../public/logo.png'
@@ -7,8 +8,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { Input, message, Menu, Dropdown, } from "antd";
 function HeaderV1(props) {
     const { Search } = Input;
-    const [searchWord, setSearchWord] = useState('')
-    const searchRef = useRef(null)
+    const [searchLoading, setSearchLoading] = useState(false)
+    const router = useRouter()
     const menu = (
         <Menu>
             <Menu.Item>
@@ -28,27 +29,28 @@ function HeaderV1(props) {
             </Menu.Item>
         </Menu>
     );
-    const onSearch = value => {
+    const onSearch = (value) => {
+        const searchWords = value.trim()
         if (!value.trim()) {
             message.warning({
                 content: '输入点什么吧',
                 duration: 1
             });
         } else {
-            console.log(searchWord)
+            router.push({
+                pathname: '/searchResult',
+                query: {
+                    keyword: searchWords
+                }
+            })
         }
     };
-    const handlerShowSearch = (e) => {
-        setShowSearch(true)
-        e.stopPropagation()
-    }
-    const onChangeHandler = e => {
-        setSearchWord(e.target.value.trim())
-    }
     return (
         <div className='mx-auto md:w-3/5 md:px-0 px-4 h-16 flex items-center'>
             <div className='h-12 flex items-center mr-4'>
-                <Image width={45} height={45} src={logo} alt='logo' />
+                <Link href='/'>
+                    <Image width={45} height={45} src={logo} alt='logo' />
+                </Link>
             </div>
             <div className='md:block hidden ml-12'>
                 <Link href='/' activeClassName={styles.navItem}>
@@ -61,7 +63,7 @@ function HeaderV1(props) {
                     <a className='hover:text-blue-600 text-xl font-medium mr-6'>关于</a>
                 </Link>
             </div>
-            <Search placeholder="输入您想搜索的内容" onSearch={onSearch} className='md:hidden mr-4' />
+            <Search maxLength='30' placeholder="输入您想搜索的内容" onSearch={onSearch} className='md:w-56 mr-4' loading={searchLoading} />
             <Dropdown overlay={menu} placement="bottomCenter">
                 <MenuUnfoldOutlined className='text-lg md:hidden' />
             </Dropdown>

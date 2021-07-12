@@ -2,53 +2,99 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { Pagination } from 'antd';
+import { Pagination, Row, Avatar, Tag } from 'antd';
+import { createFromIconfontCN } from '@ant-design/icons';
 import { apiGet } from "../utils/api";
 import ListItem from './../components/ListItem/index';
 
-export default function Home({ classifyRes, listRes }) {
-    const [count, setCount] = useState(1)
-    const [listData, setListData] = useState(listRes?.data)
-    const [classifyData, setClassifyData] = useState(classifyRes?.data)
-    console.log('sdd', listData);
+export default function Home({ classifyRes, listRes, userRes }) {
+    const [listData, setListData] = useState([])
+    const [classifyData, setClassifyData] = useState([])
+    const [userData, setUserData] = useState({})
+    const tagColorArr = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple']
+    const IconFont = createFromIconfontCN({
+        scriptUrl: [
+            '//at.alicdn.com/t/font_2506739_97d4vy8pv1h.js',
+        ],
+    });
+    useEffect(() => {
+        setListData(listRes?.data)
+        setClassifyData(classifyRes?.data)
+        setUserData(userRes?.info)
+    }, [classifyRes?.data, listRes?.data, userRes?.info])
     const pageChange = async (page) => {
         const res = await apiGet('/blog/queryArticle', { page })
         setListData(res.data)
     }
     return (
-        <>
-            {/*<div>*/}
-            {/*    {*/}
-            {/*        classifyData && classifyData.map(item => {*/}
-            {/*            return (*/}
-            {/*                <Link href={`/article/${item.id}`} key={item.id}>*/}
-            {/*                    <a>{item.classifyName}</a>*/}
-            {/*                </Link>*/}
-            {/*            )*/}
-            {/*        })*/}
-            {/*    }*/}
-            {/*</div>*/}
-            {/* rounded-t-xl overflow-hidden bg-gradient-to-r from-indigo-50 to-indigo-100 px-6 py-8 */}
-            <div className='flex'>
-                <div className='w-auto md:w-3/5  md:mr-6 px-8 py-6'>
+        <div className='flex'>
+            <div className='w-auto md:w-3/5  md:mr-6 px-8 py-6'>
+                {
+                    listData?.map(item => {
+                        return <ListItem classifyData={classifyData} key={item.id} data={item} />
+                    })
+                }
+                <Pagination defaultCurrent={1} total={listRes?.pageNation?.total} hideOnSinglePage onChange={pageChange} />
+            </div>
+            <div className='md:block hidden bg-white px-8 py-6 flex-1'>
+                <div>
+                    <Row style={{ fontSize: '20px' }} className='text-gray-600 mb-6 flex'>
+                        联系方式
+                    </Row>
+                    <Row className='flex justify-center'>
+                        <Avatar src={userData.avatar} size={70} />
+                    </Row>
+                    <Row className='mb-6 flex justify-center text-lg'>
+                        {userData.user_nickname}
+                    </Row>
+                    <Row className='mb-6 flex text-base items-center'>
+                        <IconFont type='icon-Emailus' />&nbsp;&nbsp;
+                        <span>Email</span>&nbsp;&nbsp;
+                        <a href={'mailto:' + userData.email}>{userData.email}</a>
+                    </Row>
+                    <Row className='mb-6 flex text-base items-center'>
+                        <IconFont type='icon-QQ' />&nbsp;&nbsp;
+                        <span>QQ</span>&nbsp;&nbsp;
+                        <a target="_blank" rel="noreferrer"
+                            href="http://wpa.qq.com/msgrd?v=3&uin=1150066420&site=qq&menu=yes">1150066420</a>
+                    </Row>
+                    <Row className='mb-6 flex text-base items-center'>
+                        <IconFont type='icon-weixin' />&nbsp;&nbsp;
+                        <span>微信</span>&nbsp;&nbsp;
+                        <span>1150066420</span>
+                    </Row>
+                    <Row className='mb-6 flex text-base items-center'>
+                        <IconFont type='icon-yinle' />&nbsp;&nbsp;
+                        <span>网易云音乐</span>&nbsp;&nbsp;
+                        <a href='https://music.163.com/#/playlist?id=321703385' target='_blank'
+                            rel="noreferrer">321703385</a>
+                    </Row>
+                    <Row className='mb-6 flex text-base items-center'>
+                        <IconFont type='icon-github' />&nbsp;&nbsp;
+                        <span>GitHub</span>&nbsp;&nbsp;
+                        <a href='https://github.com/Dunn-liu' target='_blank' rel="noreferrer">Dunn-liu</a>
+                    </Row>
+                </div>
+                <div>
+                    <Row className='text-lg mb-6'>分类标签</Row>
                     {
-                        listData?.map(item => {
-                            return <ListItem classifyData={classifyData} key={item.id} data={item} />
+                        classifyData && classifyData.map(item => {
+                            return (
+                                <Tag key={item.id} color={tagColorArr[Math.floor(Math.random() * (tagColorArr.length))]}>{item.classifyName}</Tag>
+                                // <Link href={`/article/${item.id}`} key={item.id}>
+                                //     <a>{item.classifyName}</a>
+                                // </Link>
+                            )
                         })
                     }
-                    <Pagination defaultCurrent={1} total={listRes?.pageNation?.total} hideOnSinglePage onChange={pageChange} />
                 </div>
-                <div className='md:block hidden bg-white'>
-                    123
-                </div>
-
-
             </div>
-        </>
+        </div>
     )
 }
 Home.getInitialProps = async (ctx) => {
     const classifyRes = await apiGet('/articleClassify')
     const listRes = await apiGet('/blog/queryArticle')
-    return { classifyRes, listRes }
+    const userRes = await apiGet('/blog/info')
+    return { classifyRes, listRes, userRes }
 }
