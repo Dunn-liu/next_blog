@@ -65,7 +65,7 @@ function HeaderV1(props) {
             </div>
             <Search maxLength='30' placeholder="输入您想搜索的内容" onSearch={onSearch} className='md:w-56 mr-4' loading={searchLoading} />
             <Dropdown overlay={menu} placement="bottomCenter">
-                <MenuUnfoldOutlined className='text-lg md:hidden' />
+                <MenuUnfoldOutlined style={{ fontSize: '22px', color: '#08c' }} className='md:hidden' />
             </Dropdown>
         </div>
     )

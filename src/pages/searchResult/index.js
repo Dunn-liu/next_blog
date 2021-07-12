@@ -1,6 +1,6 @@
 import { withRouter } from 'next/router'
 import { useState, useEffect } from 'react';
-import { Pagination } from 'antd';
+import { Pagination, Spin } from 'antd';
 import { apiGet } from "../../utils/api";
 import ListItem from './../../components/ListItem/index';
 const SearchResult = ({ classifyRes, listRes }) => {
@@ -17,12 +17,18 @@ const SearchResult = ({ classifyRes, listRes }) => {
   return (
     <div className='flex'>
       <div className='w-full px-8 py-6'>
-        {
-          listData?.map(item => {
-            return <ListItem classifyData={classifyData} key={item.id} data={item} />
-          })
+        {listData.length ?
+          <div>
+            {
+              listData?.map(item => {
+                return <ListItem classifyData={classifyData} key={item.id} data={item} />
+              })
+            }
+            {
+              <Pagination defaultCurrent={1} total={listRes?.pageNation?.total} hideOnSinglePage onChange={pageChange} />
+            }
+          </div> : <Spin />
         }
-        <Pagination defaultCurrent={1} total={listRes?.pageNation?.total} hideOnSinglePage onChange={pageChange} />
       </div>
     </div>
   )
