@@ -16,14 +16,14 @@ axios.interceptors.response.use(response => {
 export function apiGet(url, params = {}) {
     return new Promise((resolve, reject) => {
         axios.get(url, { params }).then(res =>
-            resolve(res.data)
+            resolve(res?.data)
         ).catch(e => reject(e))
     })
 }
 export function apiPost(url, data = {}) {
     return new Promise((resolve, reject) => {
         axios.post(url, data).then(res =>
-            resolve(res.data)
+            resolve(res?.data)
         ).catch(e => reject(e))
     })
 }

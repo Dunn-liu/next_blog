@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { Pagination, Row, Avatar, Tag } from 'antd';
 import { createFromIconfontCN } from '@ant-design/icons';
@@ -11,6 +12,7 @@ export default function Home({ classifyRes, listRes, userRes }) {
     const [listData, setListData] = useState([])
     const [classifyData, setClassifyData] = useState([])
     const [userData, setUserData] = useState({})
+    const router = useRouter()
     const tagColorArr = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple']
     const IconFont = createFromIconfontCN({
         scriptUrl: [
@@ -36,7 +38,7 @@ export default function Home({ classifyRes, listRes, userRes }) {
                 }
                 <Pagination defaultCurrent={1} total={listRes?.pageNation?.total} hideOnSinglePage onChange={pageChange} />
             </div>
-            <div className='md:block hidden bg-white px-8 py-6 flex-1'>
+            <div className='md:block hidden bg-white px-8 py-6 flex-1 sticky top-0'>
                 <div>
                     <Row style={{ fontSize: '20px' }} className='text-gray-600 mb-6 flex'>
                         联系方式
@@ -58,11 +60,11 @@ export default function Home({ classifyRes, listRes, userRes }) {
                         <a target="_blank" rel="noreferrer"
                             href="http://wpa.qq.com/msgrd?v=3&uin=1150066420&site=qq&menu=yes">1150066420</a>
                     </Row>
-                    <Row className='mb-6 flex text-base items-center'>
+                    {/* <Row className='mb-6 flex text-base items-center'>
                         <IconFont type='icon-weixin' />&nbsp;&nbsp;
                         <span>微信</span>&nbsp;&nbsp;
                         <span>1150066420</span>
-                    </Row>
+                    </Row> */}
                     <Row className='mb-6 flex text-base items-center'>
                         <IconFont type='icon-yinle' />&nbsp;&nbsp;
                         <span>网易云音乐</span>&nbsp;&nbsp;
@@ -80,10 +82,12 @@ export default function Home({ classifyRes, listRes, userRes }) {
                     {
                         classifyData && classifyData.map(item => {
                             return (
-                                <Tag key={item.id} color={tagColorArr[Math.floor(Math.random() * (tagColorArr.length))]}>{item.classifyName}</Tag>
-                                // <Link href={`/article/${item.id}`} key={item.id}>
-                                //     <a>{item.classifyName}</a>
-                                // </Link>
+                                <Tag key={item.id} className='cursor-pointer' onClick={() => router.push({
+                                    pathname: '/searchResult',
+                                    query: {
+                                        classifyId: item.id
+                                    }
+                                })} color={tagColorArr[Math.floor(Math.random() * (tagColorArr.length))]}>{item.classifyName}</Tag>
                             )
                         })
                     }
