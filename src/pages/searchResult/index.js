@@ -1,6 +1,6 @@
 import { withRouter, useRouter } from 'next/router'
 import { useState, useEffect } from 'react';
-import { Pagination } from 'antd';
+import { Pagination, Spin } from 'antd';
 import { apiGet } from "../../utils/api";
 import ListItem from './../../components/ListItem/index';
 import NoData from './../../components/NoData/index';
