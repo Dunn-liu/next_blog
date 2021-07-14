@@ -41,7 +41,9 @@ export default function Home({ classifyRes, listRes, userRes }) {
                         {
                             <Pagination defaultCurrent={1} total={listRes?.pageNation?.total} hideOnSinglePage onChange={pageChange} />
                         }
-                    </div> : <Spin />
+                    </div> : <div className='flex justify-center items-center h-full w-full'>
+                        <Spin />
+                    </div>
                 }
 
             </div>

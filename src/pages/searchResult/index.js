@@ -4,7 +4,7 @@ import { Pagination, Spin } from 'antd';
 import { apiGet } from "../../utils/api";
 import ListItem from './../../components/ListItem/index';
 import NoData from './../../components/NoData/index';
-const SearchResult = ({ classifyRes, listRes,ctx}) => {
+const SearchResult = ({ classifyRes, listRes}) => {
   const router = useRouter()
   const {query:{keyword,classifyId}} = router
   const [listData, setListData] = useState([])
@@ -26,12 +26,13 @@ const SearchResult = ({ classifyRes, listRes,ctx}) => {
               return <ListItem classifyData={classifyData} key={item.id} data={item} />
             })
           }
-          <Pagination defaultCurrent={1} total={listRes?.pageNation?.total} hideOnSinglePage onChange={pageChange} />
+          <Pagination className='max-w-md mx-auto md:max-w-4xl pl-4' defaultCurrent={1} total={listRes?.pageNation?.total} hideOnSinglePage onChange={pageChange} />
         </div> : <NoData />
       }
     </div>
   )
 }
+
 SearchResult.getInitialProps = async (ctx) => {
   const { query:{keyword,classifyId} } = ctx
   const classifyRes = await apiGet('/articleClassify')
