@@ -1,4 +1,5 @@
 import { withRouter } from 'next/router'
+import Head from "next/head";
 import { useEffect, useState } from 'react'
 import { Spin } from 'antd'
 import { VMdParser } from '@kangc/v-md-editor/lib/utils/v-md-parser'
@@ -21,6 +22,9 @@ const Article = ({ router, res }) => {
     }, [newHtml])
     return (
         <div>
+            <Head>
+                <title>{res?.data?.[0]?.article_title}</title>
+            </Head>
             {res.data ?
                 <div>
                     <div className="px-4 pt-4">

@@ -7,7 +7,6 @@ import _ from 'lodash'
 import loadingGif from '../../../public/imageLoading.gif'
 import fail from '../../../public/fail.png'
 const ListItem = ({ data, classifyData }) => {
-  console.log('loadingGif',loadingGif)
   const curClassifyArr = data?.classifyId?.split(',').map(item => _.filter(classifyData, ['id', Number(item)])[0])
   return (
     <div className="max-w-md mx-auto bg-white border-solid border-b border-gray-300 overflow-hidden md:max-w-4xl mb-4 p-4">

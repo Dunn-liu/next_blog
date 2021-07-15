@@ -8,7 +8,7 @@ const NoData = () => {
         <div className='flex justify-center w-full'>
             <Result
                 icon={<MehTwoTone />}
-                title="Hey, This is no data!"
+                title="Hey, There is no data!"
                 extra={<Button onClick={() => router.push({
                     pathname: '/',
                 })} type="primary">back</Button>}
