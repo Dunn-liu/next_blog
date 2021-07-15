@@ -1,16 +1,14 @@
-import { Result, Button } from 'antd';
+import {Result, Button, Image} from 'antd';
 import Link from 'next/link'
+import gif from '../../public/404.gif'
 export default function Custom404() {
-    return <Result
-        status="404"
-        title="404"
-        subTitle="Sorry, the page you visited does not exist."
-        extra={<Button type="primary">
-            <Link href='/'>
-                <a>
-                    Back Home
-                </a>
-            </Link>
-        </Button>}
-    />
+    return(<div className='flex flex-col items-center justify-center py-14'>
+        <Image preview={false} src={gif.src} ></Image>
+        <div className='my-6 text-xl'>
+            Sorry，找不到你想要的页面
+        </div>
+        <div>
+            <Button type="primary"><Link href='/'><a>回首页</a></Link></Button>
+        </div>
+    </div>)
 }
