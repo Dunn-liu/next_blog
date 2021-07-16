@@ -4,9 +4,9 @@ import { Pagination, Spin } from 'antd';
 import { apiGet } from "../../utils/api";
 import ListItem from './../../components/ListItem/index';
 import NoData from './../../components/NoData/index';
-const SearchResult = ({ classifyRes, listRes}) => {
+const SearchResult = ({ classifyRes, listRes }) => {
   const router = useRouter()
-  const {query:{keyword,classifyId}} = router
+  const { query: { keyword, classifyId } } = router
   const [listData, setListData] = useState([])
   const [classifyData, setClassifyData] = useState([])
   useEffect(() => {
@@ -20,7 +20,7 @@ const SearchResult = ({ classifyRes, listRes}) => {
   return (
     <div className='flex'>
       {
-        listData.length ?  <div className='w-full px-8 py-6'>
+        listData.length ? <div className='w-full px-8 py-6'>
           {
             listData?.map(item => {
               return <ListItem classifyData={classifyData} key={item.id} data={item} />
@@ -34,9 +34,9 @@ const SearchResult = ({ classifyRes, listRes}) => {
 }
 
 SearchResult.getInitialProps = async (ctx) => {
-  const { query:{keyword,classifyId} } = ctx
+  const { query: { keyword, classifyId } } = ctx
   const classifyRes = await apiGet('/articleClassify')
-  const listRes = await apiGet('/blog/queryArticle', { keyword , classifyId })
+  const listRes = await apiGet('/blog/queryArticle', { keyword, classifyId, page: 1 })
   return { classifyRes, listRes }
 }
 export default withRouter(SearchResult)

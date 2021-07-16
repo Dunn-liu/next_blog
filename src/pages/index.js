@@ -107,7 +107,7 @@ export default function Home({ classifyRes, listRes, userRes }) {
 }
 Home.getInitialProps = async (ctx) => {
     const classifyRes = await apiGet('/articleClassify')
-    const listRes = await apiGet('/blog/queryArticle')
+    const listRes = await apiGet('/blog/queryArticle', { page: 1 })
     const userRes = await apiGet('/blog/info')
     return { classifyRes, listRes, userRes }
 }
