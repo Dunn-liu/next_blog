@@ -37,6 +37,7 @@ function MyApp({ Component, pageProps }) {
         <meta name="description" content="web前端技术-Dunn的博客" />
         <meta name="keyWords" content="web前端,博客，react，vue，js" />
         <meta name="baidu-site-verification" content="code-IQwuKWKNik" />
+        <meta name="google-site-verification" content="wqVlWKO_6FB6BmziDNyZUcx7lt6J6hPtbJXuHUPTe3o" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <body className='bg-gray-100'>
