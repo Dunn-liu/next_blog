@@ -5,13 +5,13 @@ import styles from './index.module.scss'
 import { SearchOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import logo from '../../../public/logo.png'
 import React, { useEffect, useRef, useState } from "react";
-import { Input, message, Menu, Dropdown, } from "antd";
+import { Input, message, Menu, Dropdown, Drawer } from "antd";
 function HeaderV1(props) {
     const { Search } = Input;
     const [searchLoading, setSearchLoading] = useState(false)
     const router = useRouter()
     const menu = (
-        <Menu>
+        <Menu style={{ border: 'none' }}>
             <Menu.Item>
                 <Link href='/' activeClassName={styles.navItem}>
                     <a className='hover:text-blue-600 text-sm font-medium'>首页</a>
@@ -64,9 +64,15 @@ function HeaderV1(props) {
                 </Link>
             </div>
             <Search maxLength='30' placeholder="输入您想搜索的内容" onSearch={onSearch} className='md:w-56 mr-4' loading={searchLoading} />
-            <Dropdown overlay={menu} placement="bottomCenter">
-                <MenuUnfoldOutlined style={{ fontSize: '22px', color: '#08c' }} className='md:hidden' />
-            </Dropdown>
+            <Drawer
+                bodyStyle={{ padding: '20px 10px 0' }}
+                width='24%'
+                placement="right"
+                closable={false}
+                onClose={props.onClose}
+                visible={props.visible}
+            >{menu}</Drawer>
+            <MenuUnfoldOutlined style={{ fontSize: '22px', color: '#08c' }} onClick={props.showDrawer} className='md:hidden' />
         </div>
     )
 }

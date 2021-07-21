@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter, Router } from 'next/router'
 import NProgress from 'nprogress'
 import Head from "next/head";
@@ -15,6 +15,7 @@ import '@kangc/v-md-editor/lib/theme/style/github.css';
 import '@kangc/v-md-editor/lib/theme/style/vuepress.css';
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
     Router.events.on("routeChangeStart", (url, { shallow }) => {
       console.log(
@@ -25,11 +26,18 @@ function MyApp({ Component, pageProps }) {
     });
     router.events.on("routeChangeComplete", () => {
       NProgress.done();
+      setVisible(false);
     });
     router.events.on("routeChangeError", () => {
       NProgress.done();
     });
   }, [router.events]);
+  const showDrawer = () => {
+    setVisible(true);
+  };
+  const onClose = () => {
+    setVisible(false);
+  };
   return (
     <html>
       <Head>
@@ -42,7 +50,7 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <body className='bg-gray-100'>
         <div className='bg-white w-screen fixed h-16 z-10 shadow-sm'>
-          <HeaderV1 />
+          <HeaderV1 visible={visible} showDrawer={showDrawer} onClose={onClose} />
         </div>
         <main className=' h-full p-4 md:px-0 pt-20'>
           <div className='md:mx-auto bg-white rounded-xl w-full md:w-3/5'>
