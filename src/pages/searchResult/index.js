@@ -18,7 +18,7 @@ const SearchResult = ({ classifyRes, listRes }) => {
     setListData(res.data)
   }
   return (
-    <div className='flex'>
+    <div className='flex bg-white'>
       {
         listData.length ? <div className='w-full px-8 py-6'>
           {

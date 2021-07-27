@@ -26,7 +26,7 @@ const Article = ({ router, res }) => {
                 <title>{res?.data?.[0]?.article_title}</title>
             </Head>
             {res.data ?
-                <div>
+                <div className='bg-white'>
                     <div className="px-4 pt-4">
                         <div className="text-2xl font-bold text-gray-700 text-center">
                             {res?.data?.[0]?.article_title}

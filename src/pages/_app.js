@@ -53,7 +53,7 @@ function MyApp({ Component, pageProps }) {
           <HeaderV1 visible={visible} showDrawer={showDrawer} onClose={onClose} />
         </div>
         <main className=' h-full p-4 md:px-0 pt-20'>
-          <div className='md:mx-auto bg-white rounded-xl w-full md:w-3/5'>
+          <div className='md:mx-auto rounded-xl w-full md:w-3/5'>
             <div className='.shadow-md mx-auto'>
               <Component {...pageProps} />
             </div>

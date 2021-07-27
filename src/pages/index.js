@@ -30,7 +30,7 @@ export default function Home({ classifyRes, listRes, userRes }) {
     }
     return (
         <div className='flex'>
-            <div className='w-auto md:w-3/5  md:mr-6 px-8 py-6'>
+            <div className='w-auto md:w-3/5 bg-white  md:mr-6 px-8 py-6'>
                 {listData.length ?
                     <div>
                         {
