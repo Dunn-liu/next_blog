@@ -12,11 +12,13 @@ const ListItem = ({ data, classifyData }) => {
     <div className="max-w-md mx-auto bg-white border-solid border-b border-gray-300 overflow-hidden md:max-w-4xl mb-4 p-4">
       <div className="md:flex items-center">
         <LazyLoad width={128} height={112}>
-          <Image preview={false} className='h-28 w-full object-cover md:w-32 md:flex-shrink-0 rounded'
+          <Image preview={false} className='h-28 w-full object-contain md:w-36 md:flex-shrink-0 rounded'
+                 style={{maxWidth: 'none'}}
             fallback={fail.src}
             placeholder={
                      <Image
-                         className='h-28 w-full object-cover md:w-32 md:flex-shrink rounded'
+                         className='h-28 w-full object-contain md:w-32 md:flex-shrink rounded'
+                         style={{maxWidth: 'none'}}
                          preview={false}
                          src={loadingGif.src}
                      />
