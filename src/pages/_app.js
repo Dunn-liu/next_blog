@@ -40,13 +40,20 @@ function MyApp({ Component, pageProps }) {
   };
   return (
     <html>
-      <Head>
+    <Head>
         <title>首页 | Dunn的博客</title>
         <meta name="description" content="web前端技术-Dunn的博客" />
         <meta name="keyWords" content="web前端,博客，react，vue，js" />
         <meta name="baidu-site-verification" content="code-IQwuKWKNik" />
         <meta name="google-site-verification" content="wqVlWKO_6FB6BmziDNyZUcx7lt6J6hPtbJXuHUPTe3o" />
         <link rel="icon" href="/favicon.ico" />
+        <script dangerouslySetInnerHTML={{__html: `var _hmt = _hmt || [];
+          (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?9b3e7f4b4238c730965c5c31d8d4c0c4";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+          })();`}} />
       </Head>
       <body className='bg-gray-100'>
         <div className='bg-white w-screen fixed h-16 z-10 shadow-sm'>
