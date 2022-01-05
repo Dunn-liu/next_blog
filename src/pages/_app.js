@@ -67,7 +67,7 @@ function MyApp({ Component, pageProps }) {
           </div>
 
           <footer className='flex justify-center items-center md:mx-auto h-12 .shadow-md'>
-            <span className='mr-2'>© 2021 Copyright</span><a href="https://beian.miit.gov.cn/#/Integrated/index" target='_blank' rel="noreferrer">粤ICP备2020079967号-2</a>
+            <span className='mr-2'>© 2021 Copyright</span><a href="https://beian.miit.gov.cn/#/Integrated/index" target='_blank' rel="noreferrer">粤ICP备2020079967号</a>
           </footer>
           <BackTop>
             <div className='flex h-10 w-10 bg-gray-400 justify-center items-center text-white rounded-lg'>UP</div>
