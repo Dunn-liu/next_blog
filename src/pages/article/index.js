@@ -97,22 +97,26 @@ const Article = ({ router, res }) => {
                             <span className='text-base text-gray-500'>发布时间: {moment(res?.data?.[0]?.post_date).format('YYYY-MM-DD HH:mm:ss')}</span>
                         </div>
                     </div>
-                    <div className={`md:block hidden w-72 max-w-xs flex flex-col fixed top-20  ${styles.articleCatalog}`}>
+                    {titles.length && <div
+                        className={`md:block hidden w-72 max-w-xs flex flex-col fixed top-20  ${styles.articleCatalog}`}>
                         <div className={styles.catalogTitle}>目录</div>
                         <div className={styles.catalogBody}>
-                            <ul className={styles.catalogList} >
+                            <ul className={styles.catalogList}>
                                 {
-                                    titles.map((item,index) =>
-                                        <li className={styles.item} key={index}  onClick={()=>handleAnchorClick(item,index)}>
-                                            <div className={`${styles.aContainer} ${index===catalogIndex?styles.active:''}`} style={{marginLeft:`${item.indent * 20}px`}}>
-                                                <a className={styles.catalogATag}>{ item.title }</a>
+                                    titles.map((item, index) =>
+                                        <li className={styles.item} key={index}
+                                            onClick={() => handleAnchorClick(item, index)}>
+                                            <div
+                                                className={`${styles.aContainer} ${index === catalogIndex ? styles.active : ''}`}
+                                                style={{marginLeft: `${item.indent * 20}px`}}>
+                                                <a className={styles.catalogATag}>{item.title}</a>
                                             </div>
                                         </li>
                                     )
                                 }
                             </ul>
                         </div>
-                    </div>
+                    </div>}
                     <div className="v-md-editor-preview github-markdown-body vuepress-markdown-body copy-code-mode" ref={tagRef} dangerouslySetInnerHTML={{ __html: html }}></div>
                 </div> : <Spin />
             }
