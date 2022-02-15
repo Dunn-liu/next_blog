@@ -1,0 +1,86 @@
+.articleCatalog {
+  background: #fff;
+  border-radius: 4px;
+  padding: 0;
+  left: 81%;
+  .catalogTitle {
+    font-weight: 500;
+    padding: 1.333rem 0;
+    margin: 0 1.667rem;
+    font-size: 16px;
+    line-height: 2rem;
+    color: #1d2129;
+    border-bottom: 1px solid #e4e6eb;
+  }
+  .catalogBody {
+    position: relative;
+    max-height: 520px;
+    margin: 8px 4px 0 0;
+    overflow: auto;
+    .catalogList {
+      position: relative;
+      line-height: 22px;
+      padding: 0 0 12px;
+      .item {
+        margin: 0;
+        padding: 0;
+        font-size: 1.167rem;
+        line-height: 22px;
+        list-style: none;
+        font-weight: 400;
+        color: #000;
+        .aContainer {
+          display: block;
+          position: relative;
+          padding: 0 0 0 12px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          &.active {
+            color: #007fff;
+            &:before {
+              content: "";
+              position: absolute;
+              top: 4px;
+              left: 0;
+              margin-top: 7px;
+              width: 4px;
+              height: 16px;
+              background: #1e80ff;
+              border-radius: 0 4px 4px 0;
+            }
+          }
+          &:hover {
+            background-color: #f7f8fa;
+          }
+          .catalogATag {
+            color: inherit;
+            display: inline-block;
+            padding: 8px;
+            width: 90%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+.catalogBody::-webkit-scrollbar    //滚动条整体部分
+{
+  width: 6px;
+  height: 80px;
+}
+.catalogBody::-webkit-scrollbar-track       //scroll轨道背景
+{
+  box-shadow: none;
+  border-radius: 2px;
+}
+.catalogBody::-webkit-scrollbar-thumb  // 滚动条中能上下移动的小块
+{
+  background-color: #e4e6eb;
+  outline: none;
+  border-radius: 2px;
+}

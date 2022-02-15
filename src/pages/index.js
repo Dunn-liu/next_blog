@@ -30,7 +30,7 @@ export default function Home({ classifyRes, listRes, userRes }) {
     }
     return (
         <div className='flex'>
-            <div className='w-auto md:w-3/5 bg-white  md:mr-6 px-8 py-6'>
+            <div className='w-auto md:w-9/12 bg-white  md:mr-6 px-8 py-6'>
                 {listData.length ?
                     <div>
                         {
@@ -58,7 +58,7 @@ export default function Home({ classifyRes, listRes, userRes }) {
                     <Row className='mb-6 flex justify-center text-lg'>
                         {userData.user_nickname}
                     </Row>
-                    <Row className='mb-6 flex text-base items-center'>
+                    <Row className='mb-6 flex text-base items-center flex-nowrap overflow-ellipsis'>
                         <IconFont type='icon-Emailus' />&nbsp;&nbsp;
                         <span>Email</span>&nbsp;&nbsp;
                         <a href={'mailto:' + userData.email}>{userData.email}</a>
@@ -88,18 +88,20 @@ export default function Home({ classifyRes, listRes, userRes }) {
                 </div>
                 <div>
                     <Row className='text-lg mb-6'>分类标签</Row>
-                    {
-                        classifyData && classifyData.map(item => {
-                            return (
-                                <Tag key={item.id} className='cursor-pointer' onClick={() => router.push({
-                                    pathname: '/searchResult',
-                                    query: {
-                                        classifyId: item.id
-                                    }
-                                })} color={tagColorArr[Math.floor(Math.random() * (tagColorArr.length))]}>{item.classifyName}</Tag>
-                            )
-                        })
-                    }
+                    <div className="flex flex-wrap">
+                        {
+                            classifyData && classifyData.map(item => {
+                                return (
+                                    <Tag key={item.id} className='cursor-pointer mb-3' onClick={() => router.push({
+                                        pathname: '/searchResult',
+                                        query: {
+                                            classifyId: item.id
+                                        }
+                                    })} color={tagColorArr[Math.floor(Math.random() * (tagColorArr.length))]}>{item.classifyName}</Tag>
+                                )
+                            })
+                        }
+                    </div>
                 </div>
             </div>
         </div>
