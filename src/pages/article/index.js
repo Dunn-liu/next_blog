@@ -97,8 +97,8 @@ const Article = ({ router, res }) => {
                             <span className='text-base text-gray-500'>发布时间: {moment(res?.data?.[0]?.post_date).format('YYYY-MM-DD HH:mm:ss')}</span>
                         </div>
                     </div>
-                    <div className={`md:block hidden w-72 max-w-xs flex flex-col fixed top-20  ${styles.articleCatalog}`} style={{display:`${titles.length?'block':'none'}`}}>
-                        <div className={styles.catalogTitle}>目录</div>
+                    <div className={`md:block hidden w-72 max-w-xs flex flex-col fixed top-20  ${styles.articleCatalog}`} >
+                        <div className={styles.catalogTitle} style={{display:`${titles.length?'block':'none'}`}}>目录</div>
                         <div className={styles.catalogBody}>
                             <ul className={styles.catalogList} >
                                 {
