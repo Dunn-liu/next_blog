@@ -1,5 +1,5 @@
 import axios from "axios";
-let baseURL = 'https://api.codespring.top'
+let baseURL = 'https://api.liuqidong.com'
 axios.interceptors.request.use(config => {
     config.timeout = 1000,
         config.baseURL = baseURL,
