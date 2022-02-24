@@ -20,9 +20,9 @@ export default function Home({ classifyRes, listRes, userRes }) {
         ],
     });
     useEffect(() => {
-        setListData(listRes?.data)
-        setClassifyData(classifyRes?.data)
-        setUserData(userRes?.info)
+        setListData(listRes?.data??[])
+        setClassifyData(classifyRes?.data??[])
+        setUserData(userRes?.info??{})
     }, [classifyRes?.data, listRes?.data, userRes?.info])
     const pageChange = async (page) => {
         const res = await apiGet('/blog/queryArticle', { page })
