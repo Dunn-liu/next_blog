@@ -2,9 +2,9 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
-import { Pagination, Row, Avatar, Tag, Spin } from 'antd';
-import { createFromIconfontCN } from '@ant-design/icons';
+import React, { useState, useEffect } from 'react'
+import {Pagination, Row, Avatar, Tag, Spin, message, Button} from 'antd';
+import { createFromIconfontCN, ReloadOutlined } from '@ant-design/icons';
 import { apiGet } from "../utils/api";
 import ListItem from './../components/ListItem/index';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -14,6 +14,7 @@ export default function Home({ classifyRes, listRes, userRes }) {
     const [classifyData, setClassifyData] = useState([])
     const [userData, setUserData] = useState({})
     const [hasMore, setHasMore] = useState(true)
+    const [loadSuccess, setLoadSuccess] = useState(false)
     const router = useRouter()
     const tagColorArr = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple']
     const IconFont = createFromIconfontCN({
@@ -35,9 +36,16 @@ export default function Home({ classifyRes, listRes, userRes }) {
             setHasMore(false)
             return;
         }
+        setLoadSuccess(true)
         currentPage+=1
-        const res = await apiGet('/blog/queryArticle', { page: currentPage })
-        setListData([...listData,...res.data])
+        try {
+            const res = await apiGet('/blog/queryArticle', { page: currentPage })
+            setListData([...listData,...res.data])
+        }catch (e) {
+            setLoadSuccess(false)
+            currentPage-=1
+            message.error('网络异常！')
+        }
     }
     return (
         <div className='flex'>
@@ -48,10 +56,15 @@ export default function Home({ classifyRes, listRes, userRes }) {
                             dataLength={listData.length}
                             next={fetchMoreData}
                             hasMore={hasMore}
-                            loader={<h4>Loading...</h4>}
+                            loader={
+                                <div style={{ textAlign: "center",padding:"20px 0" }}>
+                                    {loadSuccess?<Spin tip="加载中..."/>:
+                                        <Button type="primary" onClick={fetchMoreData} icon={<ReloadOutlined/>} >重新加载</Button>}
+                                </div>
+                            }
                             endMessage={
-                                <p style={{ textAlign: "center" }}>
-                                    <b>Yay! You have seen it all</b>
+                                <p style={{ textAlign: "center",padding:"20px 0" }}>
+                                    <b>没有更多数据了</b>
                                 </p>
                             }
                         >

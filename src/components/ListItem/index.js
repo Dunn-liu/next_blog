@@ -12,7 +12,7 @@ const ListItem = ({ data, classifyData }) => {
   return (
     <div className="max-w-md mx-auto bg-white border-solid border-b border-gray-300 overflow-hidden md:max-w-4xl mb-4 p-4">
       <div className="md:flex items-center">
-        <LazyLoad width={128} height={112} style={{textAlign: 'center'}}>
+        <LazyLoad width={128} height={112} offset={300} style={{textAlign: 'center'}}>
           <Image preview={false} className='h-28 w-full object-contain md:w-36 md:flex-shrink-0 rounded'
                  style={{maxWidth: 'none'}}
             fallback={fail.src}
