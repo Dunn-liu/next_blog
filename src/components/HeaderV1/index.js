@@ -12,17 +12,17 @@ function HeaderV1(props) {
     const router = useRouter()
     const menu = (
         <Menu style={{ border: 'none' }}>
-            <Menu.Item>
+            <Menu.Item key={0}>
                 <Link href='/' activeClassName={styles.navItem}>
                     <a className='hover:text-blue-600 text-sm font-medium'>首页</a>
                 </Link>
             </Menu.Item>
-            <Menu.Item>
+            <Menu.Item key={1}>
                 <Link href='/state' activeClassName={styles.navItem}>
                     <a className='hover:text-blue-600 text-sm font-medium'>动态</a>
                 </Link>
             </Menu.Item>
-            <Menu.Item>
+            <Menu.Item key={2}>
                 <Link href='/about' activeClassName={styles.navItem}>
                     <a className='hover:text-blue-600 text-sm font-medium'>关于</a>
                 </Link>

@@ -7,11 +7,13 @@ import { Pagination, Row, Avatar, Tag, Spin } from 'antd';
 import { createFromIconfontCN } from '@ant-design/icons';
 import { apiGet } from "../utils/api";
 import ListItem from './../components/ListItem/index';
-
+import InfiniteScroll from 'react-infinite-scroll-component';
+let currentPage = 1
 export default function Home({ classifyRes, listRes, userRes }) {
     const [listData, setListData] = useState([])
     const [classifyData, setClassifyData] = useState([])
     const [userData, setUserData] = useState({})
+    const [hasMore, setHasMore] = useState(true)
     const router = useRouter()
     const tagColorArr = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple']
     const IconFont = createFromIconfontCN({
@@ -28,19 +30,45 @@ export default function Home({ classifyRes, listRes, userRes }) {
         const res = await apiGet('/blog/queryArticle', { page })
         setListData(res.data)
     }
+    const fetchMoreData = async () => {
+        if (listData?.length >= listRes?.pageNation?.total) {
+            setHasMore(false)
+            return;
+        }
+        currentPage+=1
+        const res = await apiGet('/blog/queryArticle', { page: currentPage })
+        setListData([...listData,...res.data])
+    }
     return (
         <div className='flex'>
             <div className='w-auto md:w-9/12 bg-white  md:mr-6 px-8 py-6'>
                 {listData.length ?
                     <div>
-                        {
-                            listData?.map(item => {
-                                return <ListItem classifyData={classifyData} key={item.id} data={item} />
-                            })
-                        }
-                        {
-                            <Pagination defaultCurrent={1} total={listRes?.pageNation?.total} hideOnSinglePage onChange={pageChange} />
-                        }
+                        <InfiniteScroll
+                            dataLength={listData.length}
+                            next={fetchMoreData}
+                            hasMore={hasMore}
+                            loader={<h4>Loading...</h4>}
+                            endMessage={
+                                <p style={{ textAlign: "center" }}>
+                                    <b>Yay! You have seen it all</b>
+                                </p>
+                            }
+                        >
+                            {
+                                listData?.map(item => {
+                                    return <ListItem classifyData={classifyData} key={item.id} data={item} />
+                                })
+                            }
+                        </InfiniteScroll>
+                        {/*{*/}
+                        {/*    listData?.map(item => {*/}
+                        {/*        return <ListItem classifyData={classifyData} key={item.id} data={item} />*/}
+                        {/*    })*/}
+                        {/*}*/}
+                        {/*{*/}
+                        {/*    <Pagination defaultCurrent={1} total={listRes?.pageNation?.total} hideOnSinglePage onChange={pageChange} />*/}
+                        {/*}*/}
                     </div> : <div className='flex justify-center items-center h-full w-full'>
                         <Spin />
                     </div>

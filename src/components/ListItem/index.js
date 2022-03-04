@@ -3,15 +3,16 @@ import Link from 'next/link'
 import React from "react";
 import moment from 'moment';
 import LazyLoad from 'react-lazyload';
-import _ from 'lodash'
+import {filter} from 'lodash'
+import CountUp from 'react-countup'
 import loadingGif from '../../../public/imageLoading.gif'
 import fail from '../../../public/fail.png'
 const ListItem = ({ data, classifyData }) => {
-  const curClassifyArr = data?.classifyId?.split(',').map(item => _.filter(classifyData, ['id', Number(item)])[0])
+  const curClassifyArr = data?.classifyId?.split(',').map(item => filter(classifyData, ['id', Number(item)])[0])
   return (
     <div className="max-w-md mx-auto bg-white border-solid border-b border-gray-300 overflow-hidden md:max-w-4xl mb-4 p-4">
       <div className="md:flex items-center">
-        <LazyLoad width={128} height={112}>
+        <LazyLoad width={128} height={112} style={{textAlign: 'center'}}>
           <Image preview={false} className='h-28 w-full object-contain md:w-36 md:flex-shrink-0 rounded'
                  style={{maxWidth: 'none'}}
             fallback={fail.src}
@@ -36,12 +37,20 @@ const ListItem = ({ data, classifyData }) => {
             <span>作者:&nbsp;&nbsp;{data?.author_nickname}</span>
           </div>
           <div className='mb-2'>
-            分类:&nbsp;&nbsp;
-            {
-              curClassifyArr.map(item => {
-                return <Tag key={item.id}>{item.classifyName}</Tag>
-              })
-            }
+            <div>
+              分类:&nbsp;&nbsp;
+              {
+                curClassifyArr.map(item => {
+                  return <Tag key={item.id}>{item.classifyName}</Tag>
+                })
+              }
+            </div>
+            <div>
+              浏览:&nbsp;&nbsp;
+              <span className='text-yellow-500'>
+                <CountUp end={data?.view_count} />
+              </span>
+            </div>
           </div>
           <p className=" text-gray-500 overflow-ellipsis">{data?.article_abstract}</p>
         </div>
