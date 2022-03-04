@@ -32,6 +32,7 @@ function MyApp({ Component, pageProps }) {
     router.events.on("routeChangeError", () => {
       NProgress.done();
     });
+    initRouterListeners()
   }, [router.events]);
   const showDrawer = () => {
     setVisible(true);
@@ -73,8 +74,6 @@ function MyApp({ Component, pageProps }) {
       }
     })
   }
-
-  initRouterListeners()
   return (
 <>
     <Head>
