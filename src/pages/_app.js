@@ -86,7 +86,7 @@ function MyApp({ Component, pageProps }) {
         <script dangerouslySetInnerHTML={{__html: `var _hmt = _hmt || [];
           (function() {
           var hm = document.createElement("script");
-          hm.src = "https://hm.baidu.com/hm.js?9b3e7f4b4238c730965c5c31d8d4c0c4";
+          hm.src = "https://hm.baidu.com/hm.js?8b12b7590d782e63ad87d696ecb35fbf";
           var s = document.getElementsByTagName("script")[0]; 
           s.parentNode.insertBefore(hm, s);
           })();`}} />
