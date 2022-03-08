@@ -30,7 +30,9 @@ const ListItem = ({ data, classifyData }) => {
           <Link href={{
             pathname: '/article',
             query: { id: data?.id },
-          }}>
+          }}
+          scroll={false}
+          >
             <a className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{data?.article_title}</a>
           </Link>
           <div className='flex md:items-center flex-wrap flex-col my-2 md:flex-row'><span className='md:mr-3'>更新时间:&nbsp;&nbsp;{moment(data?.post_date).format('YYYY-MM-DD HH:mm:ss')}</span>

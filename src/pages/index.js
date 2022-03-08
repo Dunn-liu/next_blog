@@ -1,21 +1,19 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useState, useEffect } from 'react'
 import {Pagination, Row, Avatar, Tag, Spin, message, Button} from 'antd';
 import { createFromIconfontCN, ReloadOutlined } from '@ant-design/icons';
 import { apiGet } from "../utils/api";
 import ListItem from './../components/ListItem/index';
-import InfiniteScroll from 'react-infinite-scroll-component';
-let currentPage = 1
-export default function Home({ classifyRes, listRes, userRes }) {
+// import InfiniteScroll from 'react-infinite-scroll-component';
+// let currentPage = 1
+export default function Home({ classifyRes, listRes, userRes, page }) {
     const [listData, setListData] = useState([])
     const [classifyData, setClassifyData] = useState([])
     const [userData, setUserData] = useState({})
-    const [hasMore, setHasMore] = useState(true)
-    const [loadSuccess, setLoadSuccess] = useState(false)
-    const router = useRouter()
+    const [currentPage, setCurrentPage] = useState(1)
+    // const [hasMore, setHasMore] = useState(true)
+    // const [loadSuccess, setLoadSuccess] = useState(false)
+    const route = useRouter()
     const tagColorArr = ['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple']
     const IconFont = createFromIconfontCN({
         scriptUrl: [
@@ -27,61 +25,75 @@ export default function Home({ classifyRes, listRes, userRes }) {
         setClassifyData(classifyRes?.data??[])
         setUserData(userRes?.info??{})
     }, [classifyRes?.data, listRes?.data, userRes?.info])
-    const pageChange = async (page) => {
-        const res = await apiGet('/blog/queryArticle', { page })
-        setListData(res.data)
+    const pageChange =  (page) => {
+        route.push({
+            pathname: '/',
+            query: {
+                page
+            }
+        })
     }
-    const fetchMoreData = async () => {
-        if (listData?.length >= listRes?.pageNation?.total) {
-            setHasMore(false)
-            return;
-        }
-        setLoadSuccess(true)
-        currentPage+=1
-        try {
-            const res = await apiGet('/blog/queryArticle', { page: currentPage })
-            setListData([...listData,...res.data])
-        }catch (e) {
-            setLoadSuccess(false)
-            currentPage-=1
-            message.error('网络异常！')
-        }
-    }
+    useEffect(()=>{
+        setCurrentPage(page)
+    },[])
+    {/*const fetchMoreData = async () => {*/}
+    {/*    if (listData?.length >= listRes?.pageNation?.total) {*/}
+    //         setHasMore(false)
+    //         return;
+    //     }
+    //     setLoadSuccess(true)
+    {/*    if (totalPage <=  currentPage) {*/}
+    {/*        currentPage = 2*/}
+    {/*        return*/}
+    {/*    }*/}
+    //     currentPage+=1
+    //     try {
+    {/*        const res = await apiGet('/blog/queryArticle', { page: currentPage })*/}
+    //         if (!res.data.length) {
+    //
+    //         }
+    //         setListData([...listData,...res.data])
+    //     }catch (e) {
+    //         setLoadSuccess(false)
+    //         currentPage-=1
+    //         message.error('网络异常！')
+    //     }
+    // }
     return (
         <div className='flex'>
             <div className='w-auto md:w-9/12 bg-white  md:mr-6 px-8 py-6'>
                 {listData.length ?
                     <div>
-                        <InfiniteScroll
-                            dataLength={listData.length}
-                            next={fetchMoreData}
-                            hasMore={hasMore}
-                            loader={
-                                <div style={{ textAlign: "center",padding:"20px 0" }}>
-                                    {loadSuccess?<Spin tip="加载中..."/>:
-                                        <Button type="primary" onClick={fetchMoreData} icon={<ReloadOutlined/>} >重新加载</Button>}
-                                </div>
-                            }
-                            endMessage={
-                                <p style={{ textAlign: "center",padding:"20px 0" }}>
-                                    <b>没有更多数据了</b>
-                                </p>
-                            }
-                        >
-                            {
-                                listData?.map(item => {
-                                    return <ListItem classifyData={classifyData} key={item.id} data={item} />
-                                })
-                            }
-                        </InfiniteScroll>
-                        {/*{*/}
-                        {/*    listData?.map(item => {*/}
-                        {/*        return <ListItem classifyData={classifyData} key={item.id} data={item} />*/}
-                        {/*    })*/}
-                        {/*}*/}
-                        {/*{*/}
-                        {/*    <Pagination defaultCurrent={1} total={listRes?.pageNation?.total} hideOnSinglePage onChange={pageChange} />*/}
-                        {/*}*/}
+                        {/*<InfiniteScroll*/}
+                        {/*    dataLength={listData.length}*/}
+                        {/*    next={fetchMoreData}*/}
+                        {/*    hasMore={hasMore}*/}
+                        {/*    loader={*/}
+                        {/*        <div style={{ textAlign: "center",padding:"20px 0" }}>*/}
+                        {/*            {loadSuccess?<Spin tip="加载中..."/>:*/}
+                        {/*                <Button type="primary" onClick={fetchMoreData} icon={<ReloadOutlined/>} >重新加载</Button>}*/}
+                        {/*        </div>*/}
+                        {/*    }*/}
+                        {/*    endMessage={*/}
+                        {/*        <p style={{ textAlign: "center",padding:"20px 0" }}>*/}
+                        {/*            <b>没有更多数据了</b>*/}
+                        {/*        </p>*/}
+                        {/*    }*/}
+                        {/*>*/}
+                        {/*    {*/}
+                        {/*        listData?.map(item => {*/}
+                        {/*            return <ListItem classifyData={classifyData} key={item.id} data={item} />*/}
+                        {/*        })*/}
+                        {/*    }*/}
+                        {/*</InfiniteScroll>*/}
+                        {
+                            listData?.map(item => {
+                                return <ListItem classifyData={classifyData} key={item.id} data={item} />
+                            })
+                        }
+                        {
+                            <Pagination defaultCurrent={currentPage} total={listRes?.pageNation?.total} hideOnSinglePage onChange={pageChange} />
+                        }
                     </div> : <div className='flex justify-center items-center h-full w-full'>
                         <Spin />
                     </div>
@@ -133,7 +145,7 @@ export default function Home({ classifyRes, listRes, userRes }) {
                         {
                             classifyData && classifyData.map(item => {
                                 return (
-                                    <Tag key={item.id} className='cursor-pointer mb-3' onClick={() => router.push({
+                                    <Tag key={item.id} className='cursor-pointer mb-3' onClick={() => route.push({
                                         pathname: '/searchResult',
                                         query: {
                                             classifyId: item.id
@@ -149,8 +161,9 @@ export default function Home({ classifyRes, listRes, userRes }) {
     )
 }
 Home.getInitialProps = async (ctx) => {
+    const {query:{page=1}} = ctx
     const classifyRes = await apiGet('/articleClassify')
-    const listRes = await apiGet('/blog/queryArticle', { page: 1 })
+    const listRes = await apiGet('/blog/queryArticle', { page })
     const userRes = await apiGet('/blog/info')
-    return { classifyRes, listRes, userRes }
+    return { classifyRes, listRes, userRes, page }
 }
