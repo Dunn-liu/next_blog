@@ -59,6 +59,9 @@ function HeaderV1(props) {
                 <Link href='/state' activeClassName={styles.navItem}>
                     <a className='hover:text-blue-600 text-xl font-medium mr-6'>动态</a>
                 </Link>
+                <Link href='/wallpaper' activeClassName={styles.navItem}>
+                    <a className='hover:text-blue-600 text-xl font-medium mr-6'>在线壁纸</a>
+                </Link>
                 <Link href='/about' activeClassName={styles.navItem}>
                     <a className='hover:text-blue-600 text-xl font-medium mr-6'>关于</a>
                 </Link>

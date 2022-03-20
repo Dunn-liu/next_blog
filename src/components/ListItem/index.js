@@ -1,4 +1,4 @@
-import { Image, Tag } from 'antd'
+import { Image, Tooltip } from 'antd'
 import Link from 'next/link'
 import React from "react";
 import moment from 'moment';
@@ -35,26 +35,27 @@ const ListItem = ({ data, classifyData }) => {
           >
             <a className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{data?.article_title}</a>
           </Link>
-          <div className='flex md:items-center flex-wrap flex-col my-2 md:flex-row'><span className='md:mr-3'>更新时间:&nbsp;&nbsp;{moment(data?.post_date).format('YYYY-MM-DD HH:mm:ss')}</span>
+          <div className='flex md:items-center flex-wrap flex-col my-1 md:flex-row'><span className='md:mr-3'>更新时间:&nbsp;&nbsp;{moment(data?.post_date).format('YYYY-MM-DD HH:mm:ss')}</span>
             <span>作者:&nbsp;&nbsp;{data?.author_nickname}</span>
           </div>
-          <div className='mb-2'>
-            <div>
+          {/*<div className='mb-2'>*/}
+            <div className='mb-1'>
               分类:&nbsp;&nbsp;
               {
                 curClassifyArr.map(item => {
-                  return <Tag key={item.id}>{item.classifyName}</Tag>
+                  return <span className='mr-2' key={item.id}>{item.classifyName}</span>
                 })
               }
             </div>
-            <div>
-              浏览:&nbsp;&nbsp;
+            <div className='mb-1'>
+              阅读:&nbsp;&nbsp;
               <span className='text-yellow-500'>
                 <CountUp end={data?.view_count} />
               </span>
             </div>
-          </div>
-          <p className=" text-gray-500 overflow-ellipsis">{data?.article_abstract}</p>
+          <Tooltip title={data?.article_abstract}>
+            <p className="text-gray-500 truncate ...">{data?.article_abstract}</p>
+          </Tooltip>
         </div>
       </div>
     </div>
