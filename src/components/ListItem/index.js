@@ -10,7 +10,7 @@ import fail from '../../../public/fail.png'
 const ListItem = ({ data, classifyData }) => {
   const curClassifyArr = data?.classifyId?.split(',').map(item => filter(classifyData, ['id', Number(item)])[0])
   return (
-    <div className="max-w-md mx-auto bg-white border-solid border-b border-gray-300 overflow-hidden md:max-w-4xl mb-4 p-4">
+    <div className="max-w-md mx-auto bg-white bg-opacity-75 border-solid border-b border-gray-300 overflow-hidden md:max-w-4xl mb-4 p-4">
       <div className="md:flex items-center">
         <LazyLoad width={128} height={112} offset={300} style={{textAlign: 'center'}}>
           <Image preview={false} className='h-28 w-full object-contain md:w-36 md:flex-shrink-0 rounded'
@@ -54,7 +54,7 @@ const ListItem = ({ data, classifyData }) => {
               </span>
             </div>
           <Tooltip title={data?.article_abstract}>
-            <p className="text-gray-500 truncate ...">{data?.article_abstract}</p>
+            <p className="text-gray-500 truncate w-72">{data?.article_abstract}</p>
           </Tooltip>
         </div>
       </div>

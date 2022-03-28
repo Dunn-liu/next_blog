@@ -1,0 +1,42 @@
+.wallpaper {
+  background-size: cover;
+  background-position: 50%;
+  background-image: url('http://cdn-ali-img-shstaticbz.shanhutech.cn/bizhi/staticwp/202110/5fd174c31c63083fadf25d0eafd2c9b0--4002088638.jpg');
+  transition: background-image .3s,background-color .2s;
+  will-change: background-image;
+}
+.windWill {
+  position: fixed;
+  right: 20px;
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  img {
+    z-index: 1;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    animation-name:rotateIn;
+    animation-duration:2s;
+    animation-timing-function:linear;
+    animation-iteration-count:infinite;
+  }
+  span {
+    display: block;
+    margin-top: -30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 5px;
+    height: 70px;
+    background-color: rgb(254, 254, 254);
+  }
+}
+@keyframes rotateIn {
+  from {
+    transform:rotate(0deg)
+  }
+
+  to {
+    transform:rotate(360deg)
+  }
+}

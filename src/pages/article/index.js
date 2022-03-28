@@ -88,7 +88,7 @@ const Article = ({ router, res }) => {
                 <meta name="description" content={res?.data?.[0]?.article_title}></meta>
             </Head>
             {res.data ?
-                <div className='bg-white'>
+                <div className='bg-white bg-opacity-75'>
                     <div className="px-4 pt-4">
                         <div className="text-2xl font-bold text-gray-700 text-center">
                             {res?.data?.[0]?.article_title}

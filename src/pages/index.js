@@ -35,7 +35,7 @@ export default function Home({ classifyRes, listRes, userRes, page }) {
     },[page])
     return (
         <div className='flex'>
-            <div className='w-auto md:w-9/12 bg-white  md:mr-6 px-8 py-6'>
+            <div className='w-auto md:w-9/12 bg-white bg-opacity-75 md:mr-6 px-8 py-6'>
                 {listData.length ?
                     <div>
                         {
@@ -51,7 +51,7 @@ export default function Home({ classifyRes, listRes, userRes, page }) {
 
             </div>
               <Affix offsetTop={80}>
-              <div className='md:block hidden bg-white px-8 py-6 flex-1'>
+              <div className='md:block hidden bg-white bg-opacity-75 px-8 py-6 flex-1'>
                 <div>
                     <Row style={{ fontSize: '20px' }} className='text-gray-600 mb-6 flex'>
                         联系方式

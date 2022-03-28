@@ -8,6 +8,8 @@ import 'antd/dist/antd.css'
 import 'nprogress/nprogress.css'
 import 'antd/dist/antd.css';
 import "tailwindcss/tailwind.css";
+import styles from './index.module.scss'
+import {apiGet} from "../utils/api";
 // md样式
 import '@kangc/v-md-editor/lib/style/base-editor.css';
 import '@kangc/v-md-editor/lib/style/preview.css';
@@ -17,6 +19,8 @@ function MyApp({ Component, pageProps }) {
   const isBrowser = (typeof window !== "undefined");
   const router = useRouter();
   const [visible, setVisible] = useState(false);
+  const [playState,setPlayState] = useState(false)
+  const [bgUrl, setBgUrl] = useState('http://cdn-ali-img-shstaticbz.shanhutech.cn/bizhi/staticwp/202110/5fd174c31c63083fadf25d0eafd2c9b0--4002088638.jpg')
   useEffect(() => {
     Router.events.on("routeChangeStart", (url, { shallow }) => {
       console.log(
@@ -34,6 +38,13 @@ function MyApp({ Component, pageProps }) {
     });
     initRouterListeners()
   }, [router.events]);
+  // useEffect(()=>{
+  //   apiGet('/imgUrl/random').then(res => {
+  //     console.log('res',res)
+  //     const src = res.data?.[0]?.url
+  //     src && setBgUrl(src)
+  //   })
+  // },[])
   const showDrawer = () => {
     setVisible(true);
   };
@@ -74,6 +85,18 @@ function MyApp({ Component, pageProps }) {
       }
     })
   }
+  const changeBg = () => {
+      setPlayState(true)
+      apiGet('/imgUrl/random').then(res => {
+        const src = res.data?.[0]?.url
+        src && setBgUrl(src)
+        setTimeout(()=>{
+          setPlayState(false)
+        },500)
+      }).catch(e=> {
+        setPlayState(false)
+      })
+  }
   return (
 <>
     <Head>
@@ -91,13 +114,13 @@ function MyApp({ Component, pageProps }) {
           s.parentNode.insertBefore(hm, s);
           })();`}} />
       </Head>
-      <div className='bg-gray-100'>
-        <div className='bg-white w-screen fixed h-16 z-10 shadow-sm'>
+      <div className={`bg-gray-100 bg-opacity-75 ${styles.wallpaper}`} style={{backgroundImage:`url('${bgUrl}')`}}>
+        <div className='bg-white bg-opacity-75 w-full fixed h-16 z-10 shadow-sm'>
           <HeaderV1 visible={visible} showDrawer={showDrawer} onClose={onClose} />
         </div>
-        <main className=' h-full p-4 md:px-0 pt-20'>
+        <main className='min-h-screen p-4 md:px-0 pt-20' style={{minHeight:'100vh'}}>
           <div className='md:mx-auto rounded-xl w-full md:w-3/5'>
-            <div className='.shadow-md mx-auto'>
+            <div className=' mx-auto'>
               <Component {...pageProps} />
             </div>
           </div>
@@ -106,10 +129,14 @@ function MyApp({ Component, pageProps }) {
             <span className='mr-2'>© 2021 Copyright</span><a href="https://beian.miit.gov.cn/#/Integrated/index" target='_blank' rel="noreferrer">粤ICP备2020079967号</a>
           </footer>
           <BackTop>
-            <div className='flex h-10 w-10 bg-gray-400 justify-center items-center text-white rounded-lg'>UP</div>
+            <div className='flex h-10 w-10 bg-opacity-75 bg-gray-400 justify-center items-center text-white rounded-lg'>UP</div>
           </BackTop>
         </main>
       </div>
+  <div className={styles.windWill}>
+    <img onClick={changeBg} style={{'animation-play-state':playState?'running':'paused'}}  src="https://infinityicon.infinitynewtab.com/assets/windmill.svg" alt=""/>
+    <span></span>
+  </div>
   </>
   )
 }

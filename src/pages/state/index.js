@@ -39,7 +39,7 @@ const state = ({ router }) => {
         },
     ];
     return (
-        <div className='bg-white'>
+        <div className='bg-white bg-opacity-75'>
             <List
                 className="comment-list"
                 header={`${data.length} replies`}
