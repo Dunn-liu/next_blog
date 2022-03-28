@@ -10,6 +10,7 @@ import 'antd/dist/antd.css';
 import "tailwindcss/tailwind.css";
 import styles from './index.module.scss'
 import {apiGet} from "../utils/api";
+import windmill from '../../public/windmill.svg'
 // md样式
 import '@kangc/v-md-editor/lib/style/base-editor.css';
 import '@kangc/v-md-editor/lib/style/preview.css';
@@ -134,7 +135,7 @@ function MyApp({ Component, pageProps }) {
         </main>
       </div>
   <div className={styles.windWill}>
-    <img onClick={changeBg} style={{'animation-play-state':playState?'running':'paused'}}  src="https://infinityicon.infinitynewtab.com/assets/windmill.svg" alt=""/>
+    <img onClick={changeBg} style={{'animation-play-state':playState?'running':'paused'}}  src={windmill.src} alt=""/>
     <span></span>
   </div>
   </>
