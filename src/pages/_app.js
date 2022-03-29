@@ -21,7 +21,8 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const [visible, setVisible] = useState(false);
   const [playState,setPlayState] = useState(false)
-  const [bgUrl, setBgUrl] = useState('http://cdn-ali-img-shstaticbz.shanhutech.cn/bizhi/staticwp/202110/5fd174c31c63083fadf25d0eafd2c9b0--4002088638.jpg')
+  const [isMobile,setIsMobile] = useState(false)
+  const [bgUrl, setBgUrl] = useState('http://cdn-ali-img-shstaticbz.shanhutech.cn/bizhi/staticwp/202202/129599c797d89bba06d78c8f229eabde--3881082716.jpg')
   useEffect(() => {
     Router.events.on("routeChangeStart", (url, { shallow }) => {
       console.log(
@@ -39,13 +40,15 @@ function MyApp({ Component, pageProps }) {
     });
     initRouterListeners()
   }, [router.events]);
-  // useEffect(()=>{
-  //   apiGet('/imgUrl/random').then(res => {
-  //     console.log('res',res)
-  //     const src = res.data?.[0]?.url
-  //     src && setBgUrl(src)
-  //   })
-  // },[])
+  useEffect(()=>{
+    setIsMobile(!!window?.navigator?.userAgent?.match(/(iPhone|iPod|Android|ios)/i))
+    window.addEventListener('resize',()=>{
+      setIsMobile(!!window?.navigator?.userAgent?.match(/(iPhone|iPod|Android|ios)/i))
+    })
+    return window.removeEventListener('resize',()=>{
+      setIsMobile(!!window?.navigator?.userAgent?.match(/(iPhone|iPod|Android|ios)/i))
+    })
+  },[])
   const showDrawer = () => {
     setVisible(true);
   };
@@ -134,10 +137,11 @@ function MyApp({ Component, pageProps }) {
           </BackTop>
         </main>
       </div>
-  <div className={styles.windWill}>
-    <img onClick={changeBg} style={{'animation-play-state':playState?'running':'paused'}}  src={windmill.src} alt=""/>
+  {!isMobile&&<div className={styles.windWill}>
+    <img onClick={changeBg} style={{'animationPlayState': playState ? 'running' : 'paused'}} src={windmill.src}
+         alt=""/>
     <span></span>
-  </div>
+  </div>}
   </>
   )
 }
