@@ -10,11 +10,13 @@ import smoothScroll from '../../utils/smooth-scroll';
 import { getScrollTop } from '../../utils/scroll-top';
 import moment from 'moment'
 import styles from './index.module.scss'
+import {throttle} from 'lodash'
 const Article = ({ router, res }) => {
     const parser = new VMdParser()
     const [html, setHtml] = useState('')
     const [titles, setTitles] = useState([])
     const [catalogIndex, setCatalogIndex] = useState(null)
+    const [scroll,setScroll] = useState(0)
     const tagRef = useRef(null)
     parser.use(githubThemeParser).use(vueThemeParser, {
         codeHighlightExtensionMap: {
@@ -47,8 +49,26 @@ const Article = ({ router, res }) => {
             indent: hTags.indexOf(el.tagName),
         })))
     },[tagRef.current])
+    useEffect(()=>{
+        window.addEventListener('scroll',throttle(scrollHandler,100))
+        return ()=>{
+            window.removeEventListener('scroll',throttle(scrollHandler,100))
+        }
+    },[])
+    useEffect(()=>{
+        const anchors = tagRef.current.querySelectorAll('h1,h2,h3,h4,h5,h6');
+        const newTitles = Array.from(anchors).filter((title) => !!title.innerText.trim());
+        for (let i = newTitles.length-1;i>=0;i--) {
+            if (scroll >= newTitles[i].offsetTop - 120) {
+                setCatalogIndex(i)
+                break;
+            }
+        }
+    },[scroll])
+    const scrollHandler = () => {
+        setScroll(document.documentElement.scrollTop || document.body.scrollTop)
+    }
     const handleAnchorClick = (anchor,index) => {
-        setCatalogIndex(index)
         const { lineIndex } = anchor;
 
         const heading = tagRef.current.querySelector(`[data-v-md-line="${lineIndex}"]`);
