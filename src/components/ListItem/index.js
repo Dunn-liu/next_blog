@@ -10,15 +10,15 @@ import fail from '../../../public/fail.png'
 const ListItem = ({ data, classifyData }) => {
   const curClassifyArr = data?.classifyId?.split(',').map(item => filter(classifyData, ['id', Number(item)])[0])
   return (
-    <div className="max-w-md mx-auto bg-white bg-opacity-75 border-solid border-b border-gray-300 overflow-hidden md:max-w-4xl mb-4 p-4">
-      <div className="md:flex items-center">
+    <div className="max-w-md p-4 mx-auto mb-4 overflow-hidden bg-white bg-opacity-75 border-b border-gray-300 border-solid md:max-w-4xl">
+      <div className="items-center md:flex">
         <LazyLoad width={128} height={112} offset={300} style={{textAlign: 'center'}}>
-          <Image preview={false} className='h-28 w-full object-contain md:w-36 md:flex-shrink-0 rounded'
+          <Image preview={false} className='object-contain w-full rounded h-28 md:w-36 md:flex-shrink-0'
                  style={{maxWidth: 'none'}}
             fallback={fail.src}
             placeholder={
                      <Image
-                         className='h-28 w-full object-contain md:w-32 md:flex-shrink rounded'
+                         className='object-contain w-full rounded h-28 md:w-32 md:flex-shrink'
                          style={{maxWidth: 'none'}}
                          preview={false}
                          src={loadingGif.src}
@@ -28,14 +28,13 @@ const ListItem = ({ data, classifyData }) => {
         </LazyLoad>
         <div className='md:ml-4'>
           <Link href={{
-            pathname: '/article',
-            query: { id: data?.id },
+            pathname: `/article/${data?.id}.html`,
           }}
           scroll={false}
           >
-            <a className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{data?.article_title}</a>
+            <a className="block mt-1 text-lg font-medium leading-tight text-black hover:underline">{data?.article_title}</a>
           </Link>
-          <div className='flex md:items-center flex-wrap flex-col my-1 md:flex-row'><span className='md:mr-3'>更新时间:&nbsp;&nbsp;{moment(data?.post_date).format('YYYY-MM-DD HH:mm:ss')}</span>
+          <div className='flex flex-col flex-wrap my-1 md:items-center md:flex-row'><span className='md:mr-3'>更新时间:&nbsp;&nbsp;{moment(data?.post_date).format('YYYY-MM-DD HH:mm:ss')}</span>
             <span>作者:&nbsp;&nbsp;{data?.author_nickname}</span>
           </div>
           {/*<div className='mb-2'>*/}

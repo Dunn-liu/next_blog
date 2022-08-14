@@ -110,7 +110,7 @@ const Article = ({ router, res }) => {
             {res.data ?
                 <div className='bg-white bg-opacity-75'>
                     <div className="px-4 pt-4">
-                        <div className="text-2xl font-bold text-gray-700 text-center">
+                        <div className="text-2xl font-bold text-center text-gray-700">
                             {res?.data?.[0]?.article_title}
                         </div>
                         <div className="flex flex-col items-center">
@@ -143,9 +143,19 @@ const Article = ({ router, res }) => {
 
     )
 }
-Article.getInitialProps = async (ctx) => {
+export async function getServerSideProps(ctx) {
+    // Fetch data from external API
     const { query } = ctx
-    const res = await apiGet('/blog/getArticle', { id: query.id })
-    return { res }
+    if (!query.id.includes('.html')) {
+        return {
+            redirect: {
+                destination: `/article/${query.id}.html`,
+                permanent: false,
+            }
+        }
+    }
+    const path = query.id.split('.html')[0]
+    const res = await apiGet('/blog/getArticle', { id: path })
+    return { props: { res } }
 }
 export default withRouter(Article)
