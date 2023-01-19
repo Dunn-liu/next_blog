@@ -31,11 +31,10 @@ export default function Home({ classifyRes, listRes, userRes, page }) {
     }
     useEffect(()=>{
         setCurrentPage(page)
-        console.log('page===============',page)
     },[page])
     return (
         <div className='flex'>
-            <div className='w-auto md:w-9/12 bg-white bg-opacity-75 md:mr-6 px-8 py-6'>
+            <div className='w-auto md:w-11/12 bg-white bg-opacity-75 md:mr-6 px-8 py-6 rounded-md shadow-md'>
                 {listData.length ?
                     <div>
                         {
@@ -51,38 +50,32 @@ export default function Home({ classifyRes, listRes, userRes, page }) {
 
             </div>
               <Affix offsetTop={80}>
-              <div className='md:block hidden bg-white bg-opacity-75 px-8 py-6 flex-1'>
+              <div className='md:block hidden bg-white bg-opacity-75 px-8 py-6 flex-1 rounded-md shadow-md'>
                 <div>
-                    <Row style={{ fontSize: '20px' }} className='text-gray-600 mb-6 flex'>
-                        联系方式
-                    </Row>
                     <Row className='flex justify-center'>
                         <Avatar src={userData.avatar} size={70} />
                     </Row>
-                    <Row className='mb-6 flex justify-center text-lg'>
+                    <Row className='mb-6 flex justify-center text-lg font-bold'>
                         {userData.user_nickname}
                     </Row>
                     <Row className='mb-6 flex text-base items-center flex-nowrap overflow-ellipsis'>
                         <IconFont type='icon-Emailus' />&nbsp;&nbsp;
-                        <span>Email</span>&nbsp;&nbsp;
-                        <a href={'mailto:' + userData.email}>{userData.email}</a>
+                        <a href={'mailto:' + userData.email}>Email</a>
                     </Row>
                     <Row className='mb-6 flex text-base items-center'>
                         <IconFont type='icon-QQ' />&nbsp;&nbsp;
-                        <span>QQ</span>&nbsp;&nbsp;
                         <a target="_blank" rel="noreferrer"
-                            href="http://wpa.qq.com/msgrd?v=3&uin=1150066420&site=qq&menu=yes">1150066420</a>
+                            href="http://wpa.qq.com/msgrd?v=3&uin=1150066420&site=qq&menu=yes">QQ</a>
                     </Row>
                     <Row className='mb-6 flex text-base items-center'>
-                        <IconFont type='icon-yinle' />&nbsp;&nbsp;
-                        <span>网易云音乐</span>&nbsp;&nbsp;
+                        <IconFont type='icon-yinle' />
+                        &nbsp;&nbsp;
                         <a href='https://music.163.com/#/playlist?id=321703385' target='_blank'
-                            rel="noreferrer">321703385</a>
+                            rel="noreferrer">网易云音乐</a>
                     </Row>
                     <Row className='mb-6 flex text-base items-center'>
                         <IconFont type='icon-github' />&nbsp;&nbsp;
-                        <span>GitHub</span>&nbsp;&nbsp;
-                        <a href='https://github.com/Dunn-liu' target='_blank' rel="noreferrer">Dunn-liu</a>
+                        <a href='https://github.com/Dunn-liu' target='_blank' rel="noreferrer">GitHub</a>
                     </Row>
                 </div>
                 <div>

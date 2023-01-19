@@ -35,6 +35,8 @@ const ListItem = ({ data, classifyData }) => {
             <a className="block mt-1 text-lg font-medium leading-tight text-black hover:underline">{data?.article_title}</a>
           </Link>
           <div className='flex flex-col flex-wrap my-1 md:items-center md:flex-row'><span className='md:mr-3'>更新时间:&nbsp;&nbsp;{moment(data?.post_date).format('YYYY-MM-DD HH:mm:ss')}</span>
+          </div>
+          <div className='mb-1'>
             <span>作者:&nbsp;&nbsp;{data?.author_nickname}</span>
           </div>
           {/*<div className='mb-2'>*/}

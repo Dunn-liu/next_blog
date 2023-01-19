@@ -108,7 +108,7 @@ const Article = ({ router, res }) => {
                 <meta name="description" content={res?.data?.[0]?.article_title}></meta>
             </Head>
             {res.data ?
-                <div className='bg-white bg-opacity-75'>
+                <div className='bg-white bg-opacity-75 shadow-md'>
                     <div className="px-4 pt-4">
                         <div className="text-2xl font-bold text-center text-gray-700">
                             {res?.data?.[0]?.article_title}
@@ -119,7 +119,7 @@ const Article = ({ router, res }) => {
                         </div>
                     </div>
                     <div style={{display:`${titles.length?'block':'none'}`}}>
-                        <div className={`md:block hidden w-72 max-w-xs flex flex-col fixed top-20  ${styles.articleCatalog}`} >
+                        <div className={`md:block hidden w-72 max-w-xs flex flex-col fixed top-20 shadow-md  ${styles.articleCatalog}`} >
                             <div className={styles.catalogTitle} >目录</div>
                             <div className={styles.catalogBody}>
                                 <ul className={styles.catalogList} >

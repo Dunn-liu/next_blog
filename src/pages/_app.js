@@ -104,7 +104,7 @@ function MyApp({ Component, pageProps }) {
   return (
 <>
     <Head>
-        <title>首页 | Dunn的博客</title>
+        <title>首页 | 前端博客</title>
         <meta name="description" content="web前端技术-Dunn的博客" />
         <meta name="keyWords" content="web前端,博客，react，vue，js" />
         <meta name="baidu-site-verification" content="code-IQwuKWKNik" />
@@ -118,11 +118,11 @@ function MyApp({ Component, pageProps }) {
           s.parentNode.insertBefore(hm, s);
           })();`}} />
       </Head>
-      <div className={`bg-gray-100 bg-opacity-75 ${styles.wallpaper}`} style={{backgroundImage:`url('${bgUrl}')`}}>
+      <div className={`bg-gray-100 bg-opacity-75 ${styles.wallpaper}`} style={{backgroundColor:`#f4f5f5`}}>
         <div className='bg-white bg-opacity-75 w-full fixed h-16 z-10 shadow-sm'>
           <HeaderV1 visible={visible} showDrawer={showDrawer} onClose={onClose} />
         </div>
-        <main className='min-h-screen p-4 md:px-0 pt-20' style={{minHeight:'100vh'}}>
+        <main className='min-h-screen p-4 md:px-0 pt-20 overflow-y-scroll' style={{minHeight:'100vh'}}>
           <div className='md:mx-auto rounded-xl w-full md:w-3/5'>
             <div className=' mx-auto'>
               <Component {...pageProps} />
