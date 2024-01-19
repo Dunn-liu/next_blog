@@ -117,14 +117,20 @@ function MyApp({ Component, pageProps }) {
           var s = document.getElementsByTagName("script")[0]; 
           s.parentNode.insertBefore(hm, s);
           })();`}} />
+          <script dangerouslySetInnerHTML={{__html: `var _hmt = _hmt || [];
+          (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "kob1wnefaq");`}} />
       </Head>
       <div className={`bg-gray-100 bg-opacity-75 ${styles.wallpaper}`} style={{backgroundColor:`#f4f5f5`}}>
-        <div className='bg-white bg-opacity-75 w-full fixed h-16 z-10 shadow-sm'>
+        <div className='fixed z-10 w-full h-16 bg-white bg-opacity-75 shadow-sm'>
           <HeaderV1 visible={visible} showDrawer={showDrawer} onClose={onClose} />
         </div>
-        <main className='min-h-screen p-4 md:px-0 pt-20 overflow-y-scroll' style={{minHeight:'100vh'}}>
-          <div className='md:mx-auto rounded-xl w-full md:w-3/5'>
-            <div className=' mx-auto'>
+        <main className='min-h-screen p-4 pt-20 overflow-y-scroll md:px-0' style={{minHeight:'100vh'}}>
+          <div className='w-full md:mx-auto rounded-xl md:w-3/5'>
+            <div className='mx-auto '>
               <Component {...pageProps} />
             </div>
           </div>
@@ -133,7 +139,7 @@ function MyApp({ Component, pageProps }) {
             <span className='mr-2'>© 2021 Copyright</span><a href="https://beian.miit.gov.cn/#/Integrated/index" target='_blank' rel="noreferrer">粤ICP备2020079967号</a>
           </footer>
           <BackTop>
-            <div className='flex h-10 w-10 bg-opacity-75 bg-gray-400 justify-center items-center text-white rounded-lg'>UP</div>
+            <div className='flex items-center justify-center w-10 h-10 text-white bg-gray-400 bg-opacity-75 rounded-lg'>UP</div>
           </BackTop>
         </main>
       </div>
